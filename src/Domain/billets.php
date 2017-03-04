@@ -1,6 +1,6 @@
 <?php
 
-namespace projet3\Domain\billets;
+namespace projet3\Domain;
 
 class billets 
 {
@@ -38,7 +38,7 @@ class billets
         return $this->titre;
     }
 
-    public function setTitre($title) {
+    public function setTitre($titre) {
         $this->titre = $titre;
         return $this;
     }
@@ -47,7 +47,7 @@ class billets
         return $this->contenu;
     }
 
-    public function setContenu($content) {
+    public function setContenu($contenu) {
         $this->contenu = $contenu;
         return $this;
     }
