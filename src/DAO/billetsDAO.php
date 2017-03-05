@@ -2,52 +2,46 @@
 
 namespace projet3\DAO;
 
-use Doctrine\DBAL\Connection;
 use projet3\Domain\billets;
 
-class billetsDAO
+class billetsDAO extends DAO
 {
-    /**
-     * Database connection
-     *
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $db;
-
-    /**
-     * Constructor
-     *
-     * @param \Doctrine\DBAL\Connection The database connection object
-     */
-    public function __construct(Connection $db) {
-        $this->db = $db;
-    }
-
     /**
      * Return a list of all articles, sorted by date (most recent first).
      *
      * @return array A list of all articles.
      */
+
+    public function find($id) {
+        $sql = "select * from billets where id=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($id));
+
+        if ($row)
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("No billets matching id " . $id);
+    }
+
     public function findAll() {
         $sql = "select * from billets order by id desc";
-        $result = $this->db->fetchAll($sql);
-        
+        $result = $this->getDb()->fetchAll($sql);
+
         // Convert query result to an array of domain objects
         $billets = array();
         foreach ($result as $row) {
             $billetsId = $row['id'];
-            $billets[$billetsId] = $this->buildBillets($row);
+            $billets[$billetsId] = $this->buildDomainObject($row);
         }
         return $billets;
     }
 
     /**
-     * Creates an billets object based on a DB row.
+     * Creates an Article object based on a DB row.
      *
-     * @param array $row The DB row containing billets data.
-     * @return \projet3\Domain\billets
+     * @param array $row The DB row containing Article data.
+     * @return \MicroCMS\Domain\Article
      */
-    private function buildBillets(array $row) {
+    protected function buildDomainObject(array $row) {
         $billets = new billets();
         $billets->setId($row['id']);
         $billets->setTitre($row['titre']);

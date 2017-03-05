@@ -1,6 +1,6 @@
 
 body { 
-    padding-top: 50px; 
+    padding-top: 80px; 
 }
 
 .footer {
@@ -8,5 +8,9 @@ body {
     padding-top: 10px;
     text-align: center;
 }
+
+
+.billetsTitre:hover, .billetsTitre:focus {
+    text-decoration: none;
 
 

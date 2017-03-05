@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+
+{% block titre %}{{ billets.titre }}{% endblock %}
+
+{% block content %}
+<p>
+    <h2>{{ billets.titre }}</h2>
+    <p>{{ billets.contenu }}</p>
+    <h3>Commentaire</h3>
+    {% for commentaire in commentaires %}
+        <strong>{{ commentaire.auteur }}</strong> said : {{ commentaire.contenu }}<br>
+    {% else %}
+        No comments yet.
+    {% endfor %}
+</p>
+{% endblock %}
