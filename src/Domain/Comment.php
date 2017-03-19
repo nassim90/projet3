@@ -1,8 +1,6 @@
 <?php
-
 namespace projet3\Domain;
-
-class commentaire
+class Comment 
 {
     /**
      * Comment id.
@@ -10,61 +8,50 @@ class commentaire
      * @var integer
      */
     private $id;
-
     /**
      * Comment author.
      *
-     * @var string
+     * @var \MicroCMS\Domain\User
      */
-    private $auteur;
-
+    private $author;
     /**
      * Comment content.
      *
      * @var integer
      */
-    private $commentaire;
-
+    private $content;
     /**
      * Associated article.
      *
      * @var \MicroCMS\Domain\Article
      */
     private $article;
-
     public function getId() {
         return $this->id;
     }
-
     public function setId($id) {
         $this->id = $id;
         return $this;
     }
-
-    public function getAuteur() {
-        return $this->auteur;
+    public function getAuthor() {
+        return $this->author;
     }
-
-    public function setAuteur($auteur) {
-        $this->auteur = $auteur;
+    public function setAuthor(User $author) {
+        $this->author = $author;
         return $this;
     }
-
-    public function getCommentaire() {
-        return $this->commentaire;
+    public function getContent() {
+        return $this->content;
     }
-
-    public function setCommentaire($commentaire) {
-        $this->commentaire = $commentaire;
+    public function setContent($content) {
+        $this->content = $content;
         return $this;
     }
-
-    public function getBillets() {
-        return $this->billets;
+    public function getArticle() {
+        return $this->article;
     }
-
-    public function setBillets(billets $billets) {
-        $this->billets = $billets;
+    public function setArticle(Article $article) {
+        $this->article = $article;
         return $this;
     }
 }

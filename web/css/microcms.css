@@ -1,6 +1,5 @@
-
 body { 
-    padding-top: 80px; 
+    padding-top: 50px; 
 }
 
 .footer {
@@ -9,8 +8,11 @@ body {
     text-align: center;
 }
 
-
-.billetsTitre:hover, .billetsTitre:focus {
+.articleTitle:hover, .articleTitle:focus {
     text-decoration: none;
+}
 
-
+.adminTable {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

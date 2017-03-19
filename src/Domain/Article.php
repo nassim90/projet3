@@ -1,8 +1,6 @@
 <?php
-
 namespace projet3\Domain;
-
-class billets 
+class Article 
 {
     /**
      * Article id.
@@ -10,45 +8,37 @@ class billets
      * @var integer
      */
     private $id;
-
     /**
      * Article title.
      *
      * @var string
      */
-    private $titre;
-
+    private $title;
     /**
      * Article content.
      *
      * @var string
      */
-    private $contenu;
-
+    private $content;
     public function getId() {
         return $this->id;
     }
-
     public function setId($id) {
         $this->id = $id;
         return $this;
     }
-
-    public function getTitre() {
-        return $this->titre;
+    public function getTitle() {
+        return $this->title;
     }
-
-    public function setTitre($titre) {
-        $this->titre = $titre;
+    public function setTitle($title) {
+        $this->title = $title;
         return $this;
     }
-
-    public function getContenu() {
-        return $this->contenu;
+    public function getContent() {
+        return $this->content;
     }
-
-    public function setContenu($contenu) {
-        $this->contenu = $contenu;
+    public function setContent($content) {
+        $this->content = $content;
         return $this;
     }
 }
