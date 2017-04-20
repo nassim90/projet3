@@ -1,10 +1,10 @@
 <?php
-namespace projet3\DAO;
+namespace blog\DAO;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use projet3\Domain\User;
+use blog\Domain\User;
 class UserDAO extends DAO implements UserProviderInterface
 {
     /**
@@ -98,7 +98,7 @@ class UserDAO extends DAO implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return 'projet3\Domain\User' === $class;
+        return 'blog\Domain\User' === $class;
     }
     /**
      * Creates a User object based on a DB row.

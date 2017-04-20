@@ -1,25 +1,15 @@
 <?php
-namespace projet3\Domain;
-class Article 
+namespace blog\Domain;
+
+class Billets 
 {
-    /**
-     * Article id.
-     *
-     * @var integer
-     */
+   
     private $id;
-    /**
-     * Article title.
-     *
-     * @var string
-     */
+    
     private $title;
-    /**
-     * Article content.
-     *
-     * @var string
-     */
+   
     private $content;
+    
     public function getId() {
         return $this->id;
     }

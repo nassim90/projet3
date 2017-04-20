@@ -1,14 +1,14 @@
 <?php
 
-namespace projet3\Controller;
+namespace blog\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use projet3\Domain\Article;
-use projet3\Domain\User;
-use projet3\Form\Type\ArticleType;
-use projet3\Form\Type\CommentType;
-use projet3\Form\Type\UserType;
+use blog\Domain\Billets;
+use blog\Domain\User;
+use blog\Form\Type\BilletsType;
+use blog\Form\Type\CommentType;
+use blog\Form\Type\UserType;
 
 class AdminController {
 
@@ -18,15 +18,14 @@ class AdminController {
      * @param Application $app Silex application
      */
     public function indexAction(Application $app) {
-        $articles = $app['dao.article']->findAll();
+        $billets = $app['dao.billets']->findAll();
         $comments = $app['dao.comment']->findAll();
         $users = $app['dao.user']->findAll();
         return $app['twig']->render('admin.html.twig', array(
-            'articles' => $articles,
+            'billets' => $billets,
             'comments' => $comments,
             'users' => $users));
     }
-
     /**
      * Add article controller.
      *
@@ -34,18 +33,17 @@ class AdminController {
      * @param Application $app Silex application
      */
     public function addArticleAction(Request $request, Application $app) {
-        $article = new Article();
-        $articleForm = $app['form.factory']->create(ArticleType::class, $article);
-        $articleForm->handleRequest($request);
-        if ($articleForm->isSubmitted() && $articleForm->isValid()) {
-            $app['dao.article']->save($article);
+        $billets = new Billets();
+        $billetsForm = $app['form.factory']->create(BilletsType::class, $billets);
+        $billetsForm->handleRequest($request);
+        if ($billetsForm->isSubmitted() && $$billetsForm->isValid()) {
+            $app['dao.billets']->save($billets);
             $app['session']->getFlashBag()->add('success', 'The article was successfully created.');
         }
-        return $app['twig']->render('article_form.html.twig', array(
+        return $app['twig']->render('billets_form.html.twig', array(
             'title' => 'New article',
-            'articleForm' => $articleForm->createView()));
+            'billetsForm' => $billetsForm->createView()));
     }
-
     /**
      * Edit article controller.
      *
@@ -53,74 +51,18 @@ class AdminController {
      * @param Request $request Incoming request
      * @param Application $app Silex application
      */
-    public function editArticleAction($id, Request $request, Application $app) {
-        $article = $app['dao.article']->find($id);
-        $articleForm = $app['form.factory']->create(ArticleType::class, $article);
-        $articleForm->handleRequest($request);
-        if ($articleForm->isSubmitted() && $articleForm->isValid()) {
-            $app['dao.article']->save($article);
+    public function editBilletsAction($id, Request $request, Application $app) {
+        $billets = $app['dao.billets']->find($id);
+        $billetsForm = $app['form.factory']->create(BilletsType::class, $billets);
+        $billetsForm->handleRequest($request);
+        if ($billetsForm->isSubmitted() && $billetsForm->isValid()) {
+            $app['dao.billets']->save($billets);
             $app['session']->getFlashBag()->add('success', 'The article was successfully updated.');
         }
-        return $app['twig']->render('article_form.html.twig', array(
+        return $app['twig']->render('billets_form.html.twig', array(
             'title' => 'Edit article',
-            'articleForm' => $articleForm->createView()));
+            'billetsForm' => $billetsForm->createView()));
     }
-
-    /**
-     * Delete article controller.
-     *
-     * @param integer $id Article id
-     * @param Application $app Silex application
-     */
-    public function deleteArticleAction($id, Application $app) {
-        // Delete all associated comments
-        $app['dao.comment']->deleteAllByArticle($id);
-        // Delete the article
-        $app['dao.article']->delete($id);
-        $app['session']->getFlashBag()->add('success', 'The article was successfully removed.');
-        // Redirect to admin home page
-        return $app->redirect($app['url_generator']->generate('admin'));
-    }
-
-    /**
-     * Edit comment controller.
-     *
-     * @param integer $id Comment id
-     * @param Request $request Incoming request
-     * @param Application $app Silex application
-     */
-    public function editCommentAction($id, Request $request, Application $app) {
-        $comment = $app['dao.comment']->find($id);
-        $commentForm = $app['form.factory']->create(CommentType::class, $comment);
-        $commentForm->handleRequest($request);
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $app['dao.comment']->save($comment);
-            $app['session']->getFlashBag()->add('success', 'The comment was successfully updated.');
-        }
-        return $app['twig']->render('comment_form.html.twig', array(
-            'title' => 'Edit comment',
-            'commentForm' => $commentForm->createView()));
-    }
-
-    /**
-     * Delete comment controller.
-     *
-     * @param integer $id Comment id
-     * @param Application $app Silex application
-     */
-    public function deleteCommentAction($id, Application $app) {
-        $app['dao.comment']->delete($id);
-        $app['session']->getFlashBag()->add('success', 'The comment was successfully removed.');
-        // Redirect to admin home page
-        return $app->redirect($app['url_generator']->generate('admin'));
-    }
-
-    /**
-     * Add user controller.
-     *
-     * @param Request $request Incoming request
-     * @param Application $app Silex application
-     */
     public function addUserAction(Request $request, Application $app) {
         $user = new User();
         $userForm = $app['form.factory']->create(UserType::class, $user);
@@ -142,7 +84,6 @@ class AdminController {
             'title' => 'New user',
             'userForm' => $userForm->createView()));
     }
-
     /**
      * Edit user controller.
      *
@@ -168,7 +109,6 @@ class AdminController {
             'title' => 'Edit user',
             'userForm' => $userForm->createView()));
     }
-
     /**
      * Delete user controller.
      *
@@ -184,4 +124,6 @@ class AdminController {
         // Redirect to admin home page
         return $app->redirect($app['url_generator']->generate('admin'));
     }
+    
 }
+   

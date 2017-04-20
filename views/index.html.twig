@@ -3,10 +3,11 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% for article in articles %}
-<article>
-    <h2><a class="articleTitle" href="{{ path('article', { 'id': article.id }) }}">{{ article.title }}</a></h2>
-    <p>{{ article.content }}</p>
-</article>
+{% for billets in billets %}
+<billets>
+    <h2><a class="billetsTitle" href="{{ path('billets', { 'id': billets.id }) }}">{{ billets.title }}</a></h2>
+    <p>{{ billets.content }}</p>
+    
+</billets>
 {% endfor %}
 {% endblock %}

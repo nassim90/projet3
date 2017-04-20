@@ -6,7 +6,7 @@ $app['db.options'] = array(
     'charset'  => 'utf8',
     'host'     => '127.0.0.1',  // Mandatory for PHPUnit testing
     'port'     => '3306',
-   'dbname'   => 'microcms',
+   'dbname'   => 'blog',
     'user'     => 'root',
     'password' => '',
 );

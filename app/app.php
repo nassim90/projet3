@@ -17,6 +17,26 @@ $app['twig'] = $app->extend('twig', function(Twig_Environment $twig, $app) {
 $app->register(new Silex\Provider\AssetServiceProvider(), array(
     'assets.version' => 'v1'
 ));
+
+$app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new Silex\Provider\LocaleServiceProvider());
+$app->register(new Silex\Provider\TranslationServiceProvider());
+$app->register(new Silex\Provider\ValidatorServiceProvider());
+// Register services
+$app['dao.billets'] = function ($app) {
+    return new blog\DAO\BilletsDAO($app['db']);
+};
+$app['dao.user'] = function ($app) {
+    return new blog\DAO\UserDAO($app['db']);
+};
+$app['dao.comment'] = function ($app) {
+    $commentDAO = new blog\DAO\CommentDAO($app['db']);
+    $commentDAO->setBilletsDAO($app['dao.billets']);
+    return $commentDAO;
+};
+
+
+    
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
@@ -26,62 +46,14 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'logout' => true,
             'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
             'users' => function () use ($app) {
-                return new projet3\DAO\UserDAO($app['db']);
+                return new blog\DAO\UserDAO($app['db']);
             },
         ),
     ),
     'security.role_hierarchy' => array(
         'ROLE_ADMIN' => array('ROLE_USER'),
-    ),
+ ),
     'security.access_rules' => array(
         array('^/admin', 'ROLE_ADMIN'),
     ),
-));
-$app->register(new Silex\Provider\FormServiceProvider());
-$app->register(new Silex\Provider\LocaleServiceProvider());
-$app->register(new Silex\Provider\TranslationServiceProvider());
-$app->register(new Silex\Provider\ValidatorServiceProvider());
-// Register services
-$app['dao.article'] = function ($app) {
-    return new projet3\DAO\ArticleDAO($app['db']);
-};
-$app['dao.user'] = function ($app) {
-    return new projet3\DAO\UserDAO($app['db']);
-};
-$app['dao.comment'] = function ($app) {
-    $commentDAO = new projet3\DAO\CommentDAO($app['db']);
-    $commentDAO->setArticleDAO($app['dao.article']);
-    $commentDAO->setUserDAO($app['dao.user']);
-    return $commentDAO;
-};
-
-// Register service providers
-
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.logfile' => __DIR__.'/../var/logs/projet3.log',
-    'monolog.name' => 'projet3',
-    'monolog.level' => $app['monolog.level']
-));
-
-// Register error handler
-$app->error(function (\Exception $e, Request $request, $code) use ($app) {
-    switch ($code) {
-        case 403:
-            $message = 'Access denied.';
-            break;
-        case 404:
-            $message = 'The requested resource could not be found.';
-            break;
-        default:
-            $message = "Something went wrong.";
-    }
-    return $app['twig']->render('error.html.twig', array('message' => $message));
-});
-
-// Register JSON data decoder for JSON requests
-$app->before(function (Request $request) {
-    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
-        $data = json_decode($request->getContent(), true);
-        $request->request->replace(is_array($data) ? $data : array());
-    }
-});
+    ));

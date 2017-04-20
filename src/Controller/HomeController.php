@@ -1,11 +1,14 @@
 <?php
 
-namespace projet3\Controller;
+namespace blog\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use projet3\Domain\Comment;
-use projet3\Form\Type\CommentType;
+use blog\Domain\Comment;
+use blog\Form\Type\CommentType;
+use blog\Form\Type\SubcommentType;
+
+
 
 class HomeController {
 
@@ -15,10 +18,9 @@ class HomeController {
      * @param Application $app Silex application
      */
     public function indexAction(Application $app) {
-        $articles = $app['dao.article']->findAll();
-        return $app['twig']->render('index.html.twig', array('articles' => $articles));
+        $billets = $app['dao.billets']->findAll();
+        return $app['twig']->render('index.html.twig', array('billets' => $billets));
     }
-    
     /**
      * Article details controller.
      *
@@ -26,41 +28,77 @@ class HomeController {
      * @param Request $request Incoming request
      * @param Application $app Silex application
      */
-    public function articleAction($id, Request $request, Application $app) {
-        $article = $app['dao.article']->find($id);
-        $commentFormView = null;
-        if ($app['security.authorization_checker']->isGranted('IS_AUTHENTICATED_FULLY')) {
-            // A user is fully authenticated : he can add comments
-            $comment = new Comment();
-            $comment->setArticle($article);
-            $user = $app['user'];
-            $comment->setAuthor($user);
-            $commentForm = $app['form.factory']->create(CommentType::class, $comment);
-            $commentForm->handleRequest($request);
-            if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-                $app['dao.comment']->save($comment);
-                $app['session']->getFlashBag()->add('success', 'Your comment was successfully added.');
-            }
-            $commentFormView = $commentForm->createView();
-        }
-        $comments = $app['dao.comment']->findAllByArticle($id);
-        
-        return $app['twig']->render('article.html.twig', array(
-            'article' => $article,
-            'comments' => $comments,
-            'commentForm' => $commentFormView));
-    }
     
-    /**
-     * User login controller.
-     *
-     * @param Request $request Incoming request
-     * @param Application $app Silex application
-     */
+    
+    public function billetsAction($id, Request $request, Application $app) {
+        $billets = $app['dao.billets']->find($id);
+        $comment = new Comment();
+        $comment->setBillets($billets);
+      
+      
+        
+        $commentForm = $app['form.factory']->create(CommentType::class, $comment);
+        $commentForm->handleRequest($request);
+        $commentFormView = $commentForm->createView();
+        
+        
+           if ($commentForm->isSubmitted() && $commentForm->isValid()) 
+               {
+                 $app['dao.comment']->save($comment);
+                 
+              
+               } 
+              $comments = $app['dao.comment']->findAllByBillets($id);
+        
+        $subcomment = new Comment();
+        
+        $subcommentForm = $app['form.factory']->create(CommentType::class, $subcomment);
+        $subcommentForm->handleRequest($request);
+        $subcommentFormView = $subcommentForm->createView(); 
+        
+          return $app['twig']->render('billets.html.twig', array(
+                  'billets' => $billets,
+                  'comments' => $comments,
+                  'commentForm' => $commentFormView,
+                  'subcommentForm' => $subcommentFormView));
+    }
+     
+ /*public function parentAction($id, Request $request, Application $app) {
+        $comment = $app['dao.comment']->find($parentId);
+        $subcomment = new Comment();
+        $subcomment->setParent($parent);
+      
+        
+        $subcommentForm = $app['form.factory']->create(SubcommentType::class, $subcomment);
+        $subcommentForm->handleRequest($request);
+        $subcommentFormView = $subcommentForm->createView();
+        
+        
+           if ($subcommentForm->isSubmitted() && $subcommentForm->isValid()) 
+               {
+                 $app['dao.comment']->save($subcomment);
+                 $app['session']->getFlashBag()->add('success', 'Your comment was successfully added.');
+              
+               } 
+              $subcomments = $app['dao.comment']->findAllByParentId($parentId);
+                  
+          return $app['twig']->render('billets.html.twig', array(
+                  
+                  'comments' => $comments,
+                  'subcomments'=>$subcomments,
+                  'subcommentForm' => $subcommentFormView));
+    }*/
+    
+    
+    
     public function loginAction(Request $request, Application $app) {
+        
         return $app['twig']->render('login.html.twig', array(
             'error'         => $app['security.last_error']($request),
-            'last_username' => $app['session']->get('_security.last_username'),
+           'last_username' => $app['session']->get('_security.last_username'),
+            
         ));
     }
 }
+    
+   
