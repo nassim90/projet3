@@ -1,6 +1,6 @@
 <?php
-namespace blog\DAO;
-use blog\Domain\Comment;
+namespace projet3\DAO;
+use projet3\Domain\Comment;
 class CommentDAO extends DAO 
 {
     
@@ -29,7 +29,7 @@ class CommentDAO extends DAO
         // art_id is not selected by the SQL query
     
         // The article won't be retrieved during domain objet construction
-        $sql = "select com_id,com_author,com_content from t_comment where bil_id=? and parent_id is null order by com_id";
+        $sql = "select * from t_comment where bil_id=? and parent_id is null order by com_id";
         $result = $this->getDb()->fetchAll($sql, array($billetsId));
         // Convert query result to an array of domain objects
         $comments = array();
@@ -116,10 +116,10 @@ class CommentDAO extends DAO
     
     protected function buildDomainObject(array $row) {
         $comment = new Comment();
-        $subcomment = new Comment();
         $comment->setId($row['com_id']);
         $comment ->setAuthor($row['com_author']);
         $comment->setContent($row['com_content']);
+        $comment->setParent($row['parent_id']);
         if (array_key_exists('bil_id', $row)) {
             // Find and set the associated article
             $billetsId = $row['bil_id'];

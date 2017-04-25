@@ -1,14 +1,14 @@
 <?php
 
-namespace blog\Controller;
+namespace projet3\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use blog\Domain\Billets;
-use blog\Domain\User;
-use blog\Form\Type\BilletsType;
-use blog\Form\Type\CommentType;
-use blog\Form\Type\UserType;
+use projet3\Domain\Billets;
+use projet3\Domain\User;
+use projet3\Form\Type\BilletsType;
+use projet3\Form\Type\CommentType;
+use projet3\Form\Type\UserType;
 
 class AdminController {
 

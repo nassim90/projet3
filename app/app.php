@@ -24,13 +24,13 @@ $app->register(new Silex\Provider\TranslationServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
 // Register services
 $app['dao.billets'] = function ($app) {
-    return new blog\DAO\BilletsDAO($app['db']);
+    return new projet3\DAO\BilletsDAO($app['db']);
 };
 $app['dao.user'] = function ($app) {
-    return new blog\DAO\UserDAO($app['db']);
+    return new projet3\DAO\UserDAO($app['db']);
 };
 $app['dao.comment'] = function ($app) {
-    $commentDAO = new blog\DAO\CommentDAO($app['db']);
+    $commentDAO = new projet3\DAO\CommentDAO($app['db']);
     $commentDAO->setBilletsDAO($app['dao.billets']);
     return $commentDAO;
 };
@@ -46,7 +46,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'logout' => true,
             'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
             'users' => function () use ($app) {
-                return new blog\DAO\UserDAO($app['db']);
+                return new projet3\DAO\UserDAO($app['db']);
             },
         ),
     ),

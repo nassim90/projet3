@@ -21,6 +21,6 @@
     },
     
     "autoload": {
-        "psr-4": {"blog\\": "src"}
+        "psr-4": {"projet3\\": "src"}
     }
 }

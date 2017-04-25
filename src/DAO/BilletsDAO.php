@@ -1,6 +1,6 @@
 <?php
-namespace blog\DAO;
-use blog\Domain\Billets;
+namespace projet3\DAO;
+use projet3\Domain\Billets;
 class BilletsDAO extends DAO
 {
     /**
@@ -68,7 +68,7 @@ class BilletsDAO extends DAO
      * Creates an Billets object based on a DB row.
      *
      * @param array $row The DB row containing Article data.
-     * @return \blog\Domain\Billets
+     * @return \projet3\Domain\Billets
      */
     protected function buildDomainObject(array $row) {
         $billets = new Billets();

@@ -63,7 +63,7 @@
     
     <script>
          var dialog;
-         var parentId = $("#parentId");
+         var parentId = $("#comment_parent");
     $( ".btn-subcomment" ).button().on( "click", function() { parentId.attr("value", $(this).attr("parentId")); dialog.dialog( "open" ); } );
         
         dialog = $( "#dialog-form" ).dialog({ autoOpen: false, height: 400, width: 350, modal: true, });

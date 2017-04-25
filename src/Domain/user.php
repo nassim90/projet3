@@ -1,6 +1,6 @@
 <?php
 
-namespace blog\Domain;
+namespace projet3\Domain;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 

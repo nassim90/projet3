@@ -1,6 +1,6 @@
 <?php
 
-namespace blog\DAO;
+namespace projet3\DAO;
 
 use Doctrine\DBAL\Connection;
 
@@ -13,11 +13,7 @@ abstract class DAO
      */
     private $db;
 
-    /**
-     * Constructor
-     *
-     * @param \Doctrine\DBAL\Connection The database connection object
-     */
+   
     public function __construct(Connection $db) {
         $this->db = $db;
     }

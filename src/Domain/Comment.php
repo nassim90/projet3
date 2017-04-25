@@ -1,5 +1,5 @@
 <?php
-namespace blog\Domain;
+namespace projet3\Domain;
 
 class Comment 
 {

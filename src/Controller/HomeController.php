@@ -1,12 +1,12 @@
 <?php
 
-namespace blog\Controller;
+namespace projet3\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
-use blog\Domain\Comment;
-use blog\Form\Type\CommentType;
-use blog\Form\Type\SubcommentType;
+use projet3\Domain\Comment;
+use projet3\Form\Type\CommentType;
+use projet3\Form\Type\SubcommentType;
 
 
 
