@@ -8,8 +8,9 @@ $app->get('/', "projet3\Controller\HomeController::indexAction")
 $app->match('/billets/{id}', "projet3\Controller\HomeController::billetsAction")
 ->bind('billets');
 
-/*$app->match('/billets/{id}', "projet3\Controller\HomeController::parentAction")
-->bind('billets');*/
+$app->match('/billets/{id}', "projet3\Controller\HomeController::badAction")
+->bind('billets');
+
 
 // Login form
 $app->get('/login', "projet3\Controller\HomeController::loginAction")
@@ -21,15 +22,15 @@ $app->get('/admin', "projet3\Controller\AdminController::indexAction")
 
 
 
-// Add a new article
+// Add a new billet
 $app->match('/admin/billets/add', "projet3\Controller\AdminController::addBilletsAction")
 ->bind('admin_billets_add');
 
-// Edit an existing article
+// Edit an existing billet
 $app->match('/admin/billets/{id}/edit', "projet3\Controller\AdminController::editBilletsAction")
 ->bind('admin_billets_edit');
 
-// Remove an article
+// Remove an billet
 $app->get('/admin/billets/{id}/delete', "projet3\Controller\AdminController::deleteBilletsAction")
 ->bind('admin_billets_delete');
 

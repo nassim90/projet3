@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use projet3\Domain\Comment;
 use projet3\Form\Type\CommentType;
 use projet3\Form\Type\SubcommentType;
+use projet3\Form\Type\BadType;
 
 
 
@@ -63,34 +64,30 @@ class HomeController {
                   'subcommentForm' => $subcommentFormView));
     }
      
- /*public function parentAction($id, Request $request, Application $app) {
-        $comment = $app['dao.comment']->find($parentId);
-        $subcomment = new Comment();
-        $subcomment->setParent($parent);
+    // fonction du controleur qui recupere le signalement 
+    
+ public function badAction($id, Request $request, Application $app) {
+        $bad = $app['dao.comment']->find($id);
+        $comment = new Comment();
+        $comment->setBad($bad);
+      
       
         
-        $subcommentForm = $app['form.factory']->create(SubcommentType::class, $subcomment);
-        $subcommentForm->handleRequest($request);
-        $subcommentFormView = $subcommentForm->createView();
+        $badForm = $app['form.factory']->create(BadType::class, $bad);
+        $badForm->handleRequest($request);
+        $badFormView = $badForm->createView();
         
         
-           if ($subcommentForm->isSubmitted() && $subcommentForm->isValid()) 
+           if ($badForm->isSubmitted() && $badForm->isValid()) 
                {
-                 $app['dao.comment']->save($subcomment);
-                 $app['session']->getFlashBag()->add('success', 'Your comment was successfully added.');
+                 $app['dao.comment']->bad($bad);
+                 
               
                } 
-              $subcomments = $app['dao.comment']->findAllByParentId($parentId);
-                  
-          return $app['twig']->render('billets.html.twig', array(
-                  
-                  'comments' => $comments,
-                  'subcomments'=>$subcomments,
-                  'subcommentForm' => $subcommentFormView));
-    }*/
-    
-    
-    
+         return $app['twig']->render('billets.html.twig', array(
+                 'badForm' => $badFormView));
+ }
+     
     public function loginAction(Request $request, Application $app) {
         
         return $app['twig']->render('login.html.twig', array(

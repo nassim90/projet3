@@ -43,6 +43,16 @@
         <strong> {{ comment.author }} </strong> dit : {{ comment.content }} 
         <button class="btn-xs btn-primary btn-subcomment" parentId=" {{ comment.id }} " >Repondre</button>
         <br>
+            
+    <div class="well">  
+
+        {{ form_start(badForm) }}
+          
+            <div class="form-group">
+                <input type="submit" name="submit_t" class="btn btn-primary" value="signaler" />
+                 </div>
+       {{ form_end(badForm) }}
+    </div>
         
         {% for subcomment in comment.subcomments %}
             <div class="sub" style=" border-left: 6px solid grey;padding-left:10px;">

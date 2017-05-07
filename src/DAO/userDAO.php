@@ -5,7 +5,6 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use projet3\Domain\User;
-use projet3\DAO\DAO;
 class UserDAO extends DAO implements UserProviderInterface
 {
     /**

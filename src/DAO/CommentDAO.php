@@ -102,15 +102,9 @@ class CommentDAO extends DAO
     }
     
     public function bad($bad){
-    if ($bad==null)
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
         
+     $sql = "UPDATE `t_comment` SET `bad` = '5' WHERE `t_comment`.`com_id` => $id";
+         
     }
     
     

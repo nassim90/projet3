@@ -1,9 +1,14 @@
 {% extends "layout.html.twig" %}
+
+    
 {% set adminMenu = true %}
 
 {% block title %}Administration{% endblock %}
-
+{% block javascript %}   <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>  
+{% endblock %}
 {% block content %}
+
 <h2 class="text-center">{{ block('title') }}</h2>
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">
