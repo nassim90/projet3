@@ -67,25 +67,17 @@ class HomeController {
     // fonction du controleur qui recupere le signalement 
     
  public function badAction($id, Request $request, Application $app) {
-        $bad = $app['dao.comment']->find($id);
-        $comment = new Comment();
-        $comment->setBad($bad);
-      
-      
-        
-        $badForm = $app['form.factory']->create(BadType::class, $bad);
-        $badForm->handleRequest($request);
-        $badFormView = $badForm->createView();
         
         
-           if ($badForm->isSubmitted() && $badForm->isValid()) 
-               {
-                 $app['dao.comment']->bad($bad);
-                 
-              
-               } 
-         return $app['twig']->render('billets.html.twig', array(
-                 'badForm' => $badFormView));
+        
+        
+          
+                 $app['dao.comment']->bad(true, $id );
+                 $comment=$app['dao.comment']-> find ($id );
+                 $billet =$comment->getBillets();
+                 return $this->billetsAction($billet->getId(),$request,$app);
+     
+                
  }
      
     public function loginAction(Request $request, Application $app) {

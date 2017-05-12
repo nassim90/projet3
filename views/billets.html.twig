@@ -6,6 +6,7 @@
 <p>
     <h2>{{ billets.title }}</h2>
    <p>{{ billets.content }}</p>
+  
 
  <button class="btn btn-primary" href="#MonCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="MonCollapse" ; >Rajouter un commentaire</button>
 
@@ -45,13 +46,10 @@
         <br>
             
     <div class="well">  
-
-        {{ form_start(badForm) }}
-          
-            <div class="form-group">
-                <input type="submit" name="submit_t" class="btn btn-primary" value="signaler" />
-                 </div>
-       {{ form_end(badForm) }}
+        
+          if
+    <a href= "{{ path('bad', { 'id': comment.id }) }}" >signaler</a>
+        else
     </div>
         
         {% for subcomment in comment.subcomments %}

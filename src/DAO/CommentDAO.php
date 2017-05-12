@@ -13,7 +13,7 @@ class CommentDAO extends DAO
    
     
     public function findAll() {
-        $sql = "select * from t_comment order by com_id desc";
+        $sql = "select * from t_comment order by bad = '1' DESC";
         $result = $this->getDb()->fetchAll($sql);
         // Convert query result to an array of domain objects
         $entities = array();
@@ -23,6 +23,9 @@ class CommentDAO extends DAO
         }
         return $entities;
     }
+    
+     
+
     
     public function findAllByBillets($billetsId) {
     
@@ -75,7 +78,8 @@ class CommentDAO extends DAO
             'bil_id' => $comment->getBillets()->getId(),
             'com_author' => $comment->getAuthor(),
             'parent_id' => $comment->getParent(),
-            'com_content' => $comment->getContent()
+            'com_content' => $comment->getContent(),
+            'bad' => $comment->getBad()
             );
         if ($comment->getId()) {
             // The comment has already been saved : update it
@@ -101,9 +105,10 @@ class CommentDAO extends DAO
         $this->getDb()->delete('t_comment', array('com_id' => $id));
     }
     
-    public function bad($bad){
-        
-     $sql = "UPDATE `t_comment` SET `bad` = '5' WHERE `t_comment`.`com_id` => $id";
+    public function bad($bad, $id){
+        $commentData = array(
+            'bad' => $bad );
+      $this->getDb()->update('t_comment', $commentData, array('com_id' => $id));   
          
     }
     
@@ -114,6 +119,8 @@ class CommentDAO extends DAO
         $comment ->setAuthor($row['com_author']);
         $comment->setContent($row['com_content']);
         $comment->setParent($row['parent_id']);
+        $comment->setBad($row['bad']);
+        
         if (array_key_exists('bil_id', $row)) {
             // Find and set the associated article
             $billetsId = $row['bil_id'];

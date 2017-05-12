@@ -8,7 +8,7 @@ class BadType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-       $builder->add( CheckboxType::class, array(
+       $builder->add(bad,CheckboxType::class, array(
            
     'label'    => 'Show this entry publicly?',
     'required' => false,

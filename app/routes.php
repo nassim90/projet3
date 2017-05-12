@@ -8,8 +8,8 @@ $app->get('/', "projet3\Controller\HomeController::indexAction")
 $app->match('/billets/{id}', "projet3\Controller\HomeController::billetsAction")
 ->bind('billets');
 
-$app->match('/billets/{id}', "projet3\Controller\HomeController::badAction")
-->bind('billets');
+$app->match('/billets_bad/{id}', "projet3\Controller\HomeController::badAction")
+->bind('bad');
 
 
 // Login form
