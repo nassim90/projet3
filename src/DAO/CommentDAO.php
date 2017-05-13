@@ -78,8 +78,7 @@ class CommentDAO extends DAO
             'bil_id' => $comment->getBillets()->getId(),
             'com_author' => $comment->getAuthor(),
             'parent_id' => $comment->getParent(),
-            'com_content' => $comment->getContent(),
-            'bad' => $comment->getBad()
+            'com_content' => $comment->getContent()
             );
         if ($comment->getId()) {
             // The comment has already been saved : update it
@@ -114,12 +113,16 @@ class CommentDAO extends DAO
     
     
     protected function buildDomainObject(array $row) {
+      
         $comment = new Comment();
         $comment->setId($row['com_id']);
         $comment ->setAuthor($row['com_author']);
         $comment->setContent($row['com_content']);
         $comment->setParent($row['parent_id']);
-        $comment->setBad($row['bad']);
+        if (isset ($row ["bad"])) {
+             $comment->setBad($row['bad']);
+        }
+       
         
         if (array_key_exists('bil_id', $row)) {
             // Find and set the associated article
@@ -128,7 +131,7 @@ class CommentDAO extends DAO
             $comment->setBillets($billets);
         }
        $comment->setSubcomments($this->findAllByParentId($comment->getId()));
-        
+ 
         return $comment;
     }
 }
