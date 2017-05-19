@@ -7,9 +7,8 @@ use Doctrine\DBAL\Connection;
 abstract class DAO 
 {
     /**
-     * Database connection
-     *
-     * @var \Doctrine\DBAL\Connection
+     * connection a la base de donnée
+     
      */
     private $db;
 

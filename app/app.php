@@ -22,7 +22,7 @@ $app->register(new Silex\Provider\FormServiceProvider());
 $app->register(new Silex\Provider\LocaleServiceProvider());
 $app->register(new Silex\Provider\TranslationServiceProvider());
 $app->register(new Silex\Provider\ValidatorServiceProvider());
-// Register services
+// Connection a la base de donnee
 $app['dao.billets'] = function ($app) {
     return new projet3\DAO\BilletsDAO($app['db']);
 };
@@ -36,7 +36,7 @@ $app['dao.comment'] = function ($app) {
 };
 
 
-    
+ // service pour  authentification
 $app->register(new Silex\Provider\SessionServiceProvider());
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(

@@ -13,9 +13,7 @@ use projet3\Form\Type\UserType;
 class AdminController {
 
     /**
-     * Admin home page controller.
-     *
-     * @param Application $app Silex application
+    page accueil de l'admin
      */
     public function indexAction(Application $app) {
         $billets = $app['dao.billets']->findAll();
@@ -27,77 +25,79 @@ class AdminController {
             'users' => $users));
     }
 
-    
+    /**
+    fonction qui rajoute un billet
+     */
     public function addBilletsAction(Request $request, Application $app) {
         $billets = new Billets();
         $billetsForm = $app['form.factory']->create(BilletsType::class, $billets);
         $billetsForm->handleRequest($request);
         if ($billetsForm->isSubmitted() && $billetsForm->isValid()) {
             $app['dao.billets']->save($billets);
-            $app['session']->getFlashBag()->add('success', 'The article was successfully created.');
+            $app['session']->getFlashBag()->add('bravo', 'Le billet a bien été créer.');
         }
         return $app['twig']->render('billets_form.html.twig', array(
             'title' => 'New billets',
             'billetsForm' => $billetsForm->createView()));
     }
 
-    
+    /**
+    fonction qui modifie un billet
+     */
     public function editBilletsAction($id, Request $request, Application $app) {
         $billets = $app['dao.billets']->find($id);
         $billetsForm = $app['form.factory']->create(BilletsType::class, $billets);
         $billetsForm->handleRequest($request);
         if ($billetsForm->isSubmitted() && $billetsForm->isValid()) {
             $app['dao.billets']->save($billets);
-            $app['session']->getFlashBag()->add('success', 'The article was successfully updated.');
+            $app['session']->getFlashBag()->add('bravo', 'Le billet a bien été modifier.');
         }
         return $app['twig']->render('billets_form.html.twig', array(
             'title' => 'Edit Billets',
             'billetsForm' => $billetsForm->createView()));
     }
 
-   
+    /**
+    fonction qui supprime un billet
+     */
     public function deleteBilletsAction($id, Application $app) {
         // Delete all associated comments
         $app['dao.comment']->deleteAllByBillets($id);
         // Delete the article
         $app['dao.billets']->delete($id);
-        $app['session']->getFlashBag()->add('success', 'The article was successfully removed.');
+        $app['session']->getFlashBag()->add('bravo', 'Le billet a bien été supprimer.');
         // Redirect to admin home page
         return $app->redirect($app['url_generator']->generate('admin'));
     }
 
-    
+    /**
+     fonction qui modifie le commentaire 
+     */
     public function editCommentAction($id, Request $request, Application $app) {
         $comment = $app['dao.comment']->find($id);
         $commentForm = $app['form.factory']->create(CommentType::class, $comment);
         $commentForm->handleRequest($request);
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $app['dao.comment']->save($comment);
-            $app['session']->getFlashBag()->add('success', 'The comment was successfully updated.');
+            $app['session']->getFlashBag()->add('bravo', 'Le commentaire a bien été modifier.');
         }
         return $app['twig']->render('comment_form.html.twig', array(
-            'title' => 'Edit comment',
+            'title' => 'Rajout commentaire',
             'commentForm' => $commentForm->createView()));
     }
 
     /**
-     * Delete comment controller.
-     *
-     * @param integer $id Comment id
-     * @param Application $app Silex application
+     fonction qui supprime le commentaire 
      */
     public function deleteCommentAction($id, Application $app) {
         $app['dao.comment']->delete($id);
-        $app['session']->getFlashBag()->add('success', 'The comment was successfully removed.');
+        $app['session']->getFlashBag()->add('bravo', 'Le commentaire a bien été suprimmer.');
         // Redirect to admin home page
         return $app->redirect($app['url_generator']->generate('admin'));
     }
 
-    /**
-     * Add user controller.
-     *
-     * @param Request $request Incoming request
-     * @param Application $app Silex application
+     /**
+    fonction qui rajoute un utilisateur
      */
     public function addUserAction(Request $request, Application $app) {
         $user = new User();
@@ -114,7 +114,7 @@ class AdminController {
             $password = $encoder->encodePassword($plainPassword, $user->getSalt());
             $user->setPassword($password); 
             $app['dao.user']->save($user);
-            $app['session']->getFlashBag()->add('success', 'The user was successfully created.');
+            $app['session']->getFlashBag()->add('bravo', 'L\'utilisateur a bien été créer.');
         }
         return $app['twig']->render('user_form.html.twig', array(
             'title' => 'New user',
@@ -122,11 +122,7 @@ class AdminController {
     }
 
     /**
-     * Edit user controller.
-     *
-     * @param integer $id User id
-     * @param Request $request Incoming request
-     * @param Application $app Silex application
+    fonction qui modifie un billet
      */
     public function editUserAction($id, Request $request, Application $app) {
         $user = $app['dao.user']->find($id);
@@ -140,7 +136,7 @@ class AdminController {
             $password = $encoder->encodePassword($plainPassword, $user->getSalt());
             $user->setPassword($password); 
             $app['dao.user']->save($user);
-            $app['session']->getFlashBag()->add('success', 'The user was successfully updated.');
+            $app['session']->getFlashBag()->add('bravo',  'L\'utilisateur a bien été modifier.');
         }
         return $app['twig']->render('user_form.html.twig', array(
             'title' => 'Edit user',
@@ -148,17 +144,14 @@ class AdminController {
     }
 
     /**
-     * Delete user controller.
-     *
-     * @param integer $id User id
-     * @param Application $app Silex application
+    fonction qui supprime un billet
      */
     public function deleteUserAction($id, Application $app) {
         // Delete all associated comments
         $app['dao.comment']->deleteAllByUser($id);
         // Delete the user
         $app['dao.user']->delete($id);
-        $app['session']->getFlashBag()->add('success', 'The user was successfully removed.');
+        $app['session']->getFlashBag()->add('bravo', 'L\'utilisateur a bien été suprimmer.');
         // Redirect to admin home page
         return $app->redirect($app['url_generator']->generate('admin'));
     }

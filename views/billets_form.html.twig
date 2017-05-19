@@ -2,9 +2,15 @@
 {% set adminMenu = true %}
 
 {% block title %}{{ title }}{% endblock %}
-
 {% block content %}
-<h2 class="text-center">{{ block('title') }}</h2>
+
+{% block javascripts %}
+
+<script src="{{ asset('/lib/js/tinymce/tinymce.min.js') }}"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
+ 
+{% endblock  %}
+<h2 class="text-center">Nouveau billet</h2>
 {% for flashMessage in app.session.flashbag.get('success') %}
 <div class="alert alert-success">
     {{ flashMessage }}
@@ -12,7 +18,8 @@
 {% endfor %}
 
 <div class="well">
-{{ form_start(billetsForm, { 'attr': {'class': 'form-horizontal'} }) }}
+    
+{{ form_start(billetsForm, { 'attr': {'class': 'form-horizontal',"novalidate":true} }) }}
     <div class="form-group">
         {{ form_label(billetsForm.title, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
@@ -32,15 +39,18 @@
             {{ form_errors(billetsForm.content) }}
             {{ form_widget(billetsForm.content, { 'attr':  {
                 'class': 'form-control',
-                'rows': '8'
+                'rows': '8',
+                "required":false,
             }}) }}
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-3">
-            <input type="submit" class="btn btn-primary" value="Save" />
+            <input type="submit" class="btn btn-primary" value="Save" action="index.html" method="post"/>
         </div>
     </div>
+ 
 {{ form_end(billetsForm) }}
 </div>
+
 {% endblock %}

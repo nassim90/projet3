@@ -9,8 +9,8 @@ class BilletsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('content', TextareaType::class);
+            ->add('title', TextType::class, array('label' => 'Titre') )
+            ->add('content', TextareaType::class,array('label' => 'Contenu'), array("attr"=>array("required"=>false)));
     }
     public function getName()
     {

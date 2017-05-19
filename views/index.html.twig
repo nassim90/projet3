@@ -6,7 +6,7 @@
 {% for billets in billets %}
 <billets>
     <h2><a class="billetsTitle" href="{{ path('billets', { 'id': billets.id }) }}">{{ billets.title }}</a></h2>
-    <p>{{ billets.content }}</p>
+    <p>{{ billets.content |raw}}</p>
     
 </billets>
 {% endfor %}

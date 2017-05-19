@@ -13,7 +13,7 @@ class CommentDAO extends DAO
    
     
     public function findAll() {
-        $sql = "select * from t_comment order by bad = '1' DESC";
+        $sql = "select * from t_comment order by bad = 'OUI' DESC";
         $result = $this->getDb()->fetchAll($sql);
         // Convert query result to an array of domain objects
         $entities = array();

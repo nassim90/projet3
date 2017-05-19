@@ -35,9 +35,7 @@ class BilletsDAO extends DAO
             throw new \Exception("No article matching id " . $id);
     }
     /**
-     * Saves an article into the database.
-     *
-     * @param \MicroCMS\Domain\Article $article The article to save
+     Sauvegarde un billet dans la base de donnée
      */
     public function save(Billets $billets) {
         $billetsData = array(
@@ -56,9 +54,7 @@ class BilletsDAO extends DAO
         }
     }
     /**
-     * Removes an article from the database.
-     *
-     * @param integer $id The article id.
+       Supprimer un billet de la base de donnée
      */
     public function delete($id) {
         // Delete the article

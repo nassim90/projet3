@@ -8,9 +8,7 @@ use projet3\Domain\User;
 class UserDAO extends DAO implements UserProviderInterface
 {
     /**
-     * Returns a list of all users, sorted by role and name.
-     *
-     * @return array A list of all users.
+     retrouve tous les utilisateurs
      */
     public function findAll() {
         $sql = "select * from t_user order by usr_role, usr_name";
@@ -39,9 +37,7 @@ class UserDAO extends DAO implements UserProviderInterface
             throw new \Exception("No user matching id " . $id);
     }
     /**
-     * Saves a user into the database.
-     *
-     * @param \MicroCMS\Domain\User $user The user to save
+     Sauvegarde les utilisateurs dans la base de donnée
      */
     public function save(User $user) {
         $userData = array(
@@ -62,9 +58,7 @@ class UserDAO extends DAO implements UserProviderInterface
         }
     }
     /**
-     * Removes an user from the database.
-     *
-     * @param integer $id The user id.
+     Supprimer les utilisateurs dans la base de donnée
      */
     public function delete($id) {
         // Delete the user

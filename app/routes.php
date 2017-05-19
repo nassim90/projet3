@@ -2,7 +2,7 @@
 
 // Home page
 $app->get('/', "projet3\Controller\HomeController::indexAction")
-->bind('home');
+->bind('home');// nom de la route
 
 // Detailed info about an article
 $app->match('/billets/{id}', "projet3\Controller\HomeController::billetsAction")

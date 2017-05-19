@@ -13,24 +13,18 @@ use projet3\Form\Type\BadType;
 
 class HomeController {
 
-    /**
-     * Home page controller.
-     *
-     * @param Application $app Silex application
+     /**
+    page accueil qui affiche les billets
      */
     public function indexAction(Application $app) {
         $billets = $app['dao.billets']->findAll();
         return $app['twig']->render('index.html.twig', array('billets' => $billets));
     }
-    /**
-     * Article details controller.
-     *
-     * @param integer $id Article id
-     * @param Request $request Incoming request
-     * @param Application $app Silex application
+    
+     /**
+    fonction qui afiche les details des billets 
+    et les commentaires
      */
-    
-    
     public function billetsAction($id, Request $request, Application $app) {
         $billets = $app['dao.billets']->find($id);
         $comment = new Comment();
@@ -64,22 +58,18 @@ class HomeController {
                   'subcommentForm' => $subcommentFormView));
     }
      
-    // fonction du controleur qui recupere le signalement 
+    // fonction qui recupere le signalement 
     
  public function badAction($id, Request $request, Application $app) {
         
-        
-        
-        
-          
-                 $app['dao.comment']->bad(true, $id );
+                 $app['dao.comment']->bad("OUI", $id );
                  $comment=$app['dao.comment']-> find ($id );
                  $billet =$comment->getBillets();
                  return $this->billetsAction($billet->getId(),$request,$app);
      
                 
  }
-     
+     // fonction qui permet de ce connecter à l'admin  
     public function loginAction(Request $request, Application $app) {
         
         return $app['twig']->render('login.html.twig', array(

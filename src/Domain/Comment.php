@@ -25,7 +25,6 @@ class Comment
         $this->id = $id;
         return $this;
     }
-    
     public function getAuthor() {
         return $this->author;
     }
@@ -33,7 +32,6 @@ class Comment
         $this->author = $author;
         return $this;
     }
-   
     public function getContent() {
         return $this->content;
     }

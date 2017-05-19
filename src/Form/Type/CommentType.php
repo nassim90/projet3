@@ -10,7 +10,7 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                  ->add('parent', TextType::class)
+                  ->add('parent', HiddenType::class,array("attr"=>array("class"=>"champCache")))
           		  ->add('author', TextareaType::class)
            		  ->add('content', TextareaType::class);
                   

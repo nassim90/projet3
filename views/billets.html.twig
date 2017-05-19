@@ -5,7 +5,7 @@
 {% block content %}
 <p>
     <h2>{{ billets.title }}</h2>
-   <p>{{ billets.content }}</p>
+   <p>{{ billets.content |raw }}</p>
   
 
  <button class="btn btn-primary" href="#MonCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="MonCollapse" ; >Rajouter un commentaire</button>
@@ -19,7 +19,7 @@
                 {{ form_widget(commentForm.author, { 'attr':  {
                     'rows': '1',
                     'class': 'form-control',
-                    'placeholder': 'Enter votre nom'
+                    'placeholder': 'Entrer votre nom'
                 }}) }}
             </div>
             <div class="form-group">
@@ -27,7 +27,7 @@
                 {{ form_widget(commentForm.content, { 'attr':  {
                     'rows': '4',
                     'class': 'form-control',
-                    'placeholder': 'Enter your comment'
+                    'placeholder': 'Entrer votre commentaire'
                 }}) }}
             </div>
             <div class="form-group">
@@ -42,35 +42,47 @@
         <section style="padding-bottom:10px;">
             
         <strong> {{ comment.author }} </strong> dit : {{ comment.content }} 
-        <button class="btn-xs btn-primary btn-subcomment" parentId=" {{ comment.id }} " >Repondre</button>
-        <br>
-            
-    <div class="well">  
+        <button class="btn-xs btn-primary btn-subcomment" data-parent=" {{ comment.id }} " >Repondre</button>
+        <a href= "{{ path('bad', { 'id': comment.id }) }}" >signaler</a>
         
-         
-    <a href= "{{ path('bad', { 'id': comment.id }) }}" >signaler</a>
-        
-    </div>
+         </section>
+    
         
         {% for subcomment in comment.subcomments %}
+           <section style="padding-bottom:10px;">
             <div class="sub" style=" border-left: 6px solid grey;padding-left:10px;">
-                <strong> {{ subcomment.author }}  </strong> dit : {{ subcomment.content }}<br>
+                <strong> {{ subcomment.author }}  </strong> dit : {{ subcomment.content }}
+                <button class="btn-xs btn-primary btn-subcomment" data-parent=" {{ subcomment.id }} " >Repondre</button>
+                <a href= "{{ path('bad', { 'id': subcomment.id }) }}" >signaler</a>
             </div>
+           </section>    
+           
  
             {% for subcomment2 in subcomment.subcomments %}
-               <div class="sub2" style=" border-left: 6px solid grey;padding-left:25px;">
-                         <strong> {{ subcomment2.author }}  </strong> dit : {{ subcomment2.content }}<br>
+                <section style="padding-bottom:15px;">
+               <div class="sub2" style=" border: 3px solid blue;padding:10px;padding-left:25px; margin: 5px;">
+                         <strong> {{ subcomment2.author }}  </strong> dit : {{ subcomment2.content }}
+                   <button class="btn-xs btn-primary btn-subcomment" data-parent=" {{ subcomment2.id }} " >Repondre</button>
+                   <a href= "{{ path('bad', { 'id': subcomment2.id }) }}" >signaler</a>
                </div>
+                
+                 </section>   
                {% for subcomment3 in subcomment2.subcomments %}
-                    <div class="sub2" style=" border-left: 6px solid grey;padding-left:40px;">
-                         <strong> {{ subcomment3.author }}  </strong> dit : {{ subcomment3.content }}<br>
+                    <section style="padding-bottom:10px;">
+                    <div class="sub3" style=" border: 3px solid red;padding:10px;padding-left:40px;margin: 10px;">
+                         <strong> {{ subcomment3.author }}  </strong> dit : {{ subcomment3.content }}
+                        
+                  <a href= "{{ path('bad', { 'id': subcomment3.id }) }}" >signaler</a>
                     </div>
+                    </section>         
+                     
+                     
                               
                {% endfor %}      
             {% endfor %} 
         {% endfor %} 
             
-        </section>
+       
     {% endfor %}
 
 
@@ -98,7 +110,8 @@
                 
                 {{ form_widget(subcommentForm.parent, { 'attr':  {
                     'rows': '1',
-                    'class': 'form-control',
+                    'hidden':true,
+                    'class': 'form-control champCache' ,
                     'placeholder': 'Enter votre parent id'
                 }}) }}
             </div>
