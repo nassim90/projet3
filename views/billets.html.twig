@@ -8,7 +8,7 @@
    <p>{{ billets.content |raw }}</p>
   
 
- <button class="btn btn-primary" href="#MonCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="MonCollapse" ; >Rajouter un commentaire</button>
+ <button class="btn-xs btn-primary" href="#MonCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="MonCollapse" ; >Rajouter un commentaire</button>
 
     <section id="MonCollapse" class="collapse">
 <div class="well">  
@@ -31,26 +31,27 @@
                 }}) }}
             </div>
             <div class="form-group">
-                <input type="submit" name="submit_t" class="btn btn-primary" value="Publish comment" />
+                <input type="submit" name="submit_t" class="btn btn-primary" value="Publier votre commentaire" />
                  </div>
        {{ form_end(commentForm) }}
     </div>
     </section> 
     <h3>Commentaires</h3>
 
+<div class="container">
     {% for comment in comments %}
         <section style="padding-bottom:10px;">
-            
+          <div class="sub" style=" border: 8px solid #9E9E9E;border-radius: 25px;padding:10px;">   
         <strong> {{ comment.author }} </strong> dit : {{ comment.content }} 
         <button class="btn-xs btn-primary btn-subcomment" data-parent=" {{ comment.id }} " >Repondre</button>
         <a href= "{{ path('bad', { 'id': comment.id }) }}" >signaler</a>
-        
+        </div>
          </section>
     
         
         {% for subcomment in comment.subcomments %}
            <section style="padding-bottom:10px;">
-            <div class="sub" style=" border-left: 6px solid grey;padding-left:10px;">
+            <div class="sub" style=" border: 8px solid #4CAF50;border-radius: 25px;padding:10px;margin-left:25px;">
                 <strong> {{ subcomment.author }}  </strong> dit : {{ subcomment.content }}
                 <button class="btn-xs btn-primary btn-subcomment" data-parent=" {{ subcomment.id }} " >Repondre</button>
                 <a href= "{{ path('bad', { 'id': subcomment.id }) }}" >signaler</a>
@@ -60,7 +61,7 @@
  
             {% for subcomment2 in subcomment.subcomments %}
                 <section style="padding-bottom:15px;">
-               <div class="sub2" style=" border: 3px solid blue;padding:10px;padding-left:25px; margin: 5px;">
+               <div class="sub2" style=" border: 8px solid #673AB7;border-radius: 25px;padding:10px;margin-left:50px; ">
                          <strong> {{ subcomment2.author }}  </strong> dit : {{ subcomment2.content }}
                    <button class="btn-xs btn-primary btn-subcomment" data-parent=" {{ subcomment2.id }} " >Repondre</button>
                    <a href= "{{ path('bad', { 'id': subcomment2.id }) }}" >signaler</a>
@@ -69,7 +70,7 @@
                  </section>   
                {% for subcomment3 in subcomment2.subcomments %}
                     <section style="padding-bottom:10px;">
-                    <div class="sub3" style=" border: 3px solid red;padding:10px;padding-left:40px;margin: 10px;">
+                    <div class="sub3" style=" border: 8px solid #F44336;border-radius: 25px;padding:10px;margin-left:75px;">
                          <strong> {{ subcomment3.author }}  </strong> dit : {{ subcomment3.content }}
                         
                   <a href= "{{ path('bad', { 'id': subcomment3.id }) }}" >signaler</a>
@@ -85,6 +86,10 @@
        
     {% endfor %}
 
+    
+    
+</div>
+
 
  <div id="dialog-form">     
 
@@ -94,7 +99,7 @@
                 {{ form_widget(subcommentForm.author, { 'attr':  {
                     'rows': '1',
                     'class': 'form-control',
-                    'placeholder': 'Enter votre nom'
+                    'placeholder': 'Entrer votre nom'
                 }}) }}
             </div>
             <div class="form-cont">
@@ -103,7 +108,7 @@
                     'rows': '1',
                     'col': '4',
                     'class': 'form-control',
-                    'placeholder': 'Enter your comment'
+                    'placeholder': 'Entrer votre commentaire'
                 }}) }}
             </div>
      <div class="form-parent">
@@ -116,7 +121,7 @@
                 }}) }}
             </div>
             <div class="form-group">
-                <input type="submit" name="submit_p" class="btn btn-primary" value="Publish comment" />
+                <input type="submit" name="submit_p" class="btn btn-primary" value="Publier votre commentaire" />
                  </div> 
         {{ form_end(subcommentForm) }} 
 </div>  

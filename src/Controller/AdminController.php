@@ -82,7 +82,7 @@ class AdminController {
             $app['session']->getFlashBag()->add('bravo', 'Le commentaire a bien été modifier.');
         }
         return $app['twig']->render('comment_form.html.twig', array(
-            'title' => 'Rajout commentaire',
+            'title' => 'Modification du commentaire',
             'commentForm' => $commentForm->createView()));
     }
 

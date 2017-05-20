@@ -13,6 +13,15 @@
 
 <div class="well">
 {{ form_start(commentForm, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="Nom">
+                
+                {{ form_widget(commentForm.author, { 'attr':  {
+                    'style':'display:none',
+                    'rows': '0',
+                    'hidden':true,
+                    'class': 'form-control champCache' ,
+                }}) }}
+            </div>
     <div class="form-group">
         {{ form_label(commentForm.content, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
@@ -27,7 +36,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-3">
-            <input type="submit" class="btn btn-primary" value="Save" />
+            <input type="submit" class="btn btn-primary" value="Sauvegarder" />
         </div>
     </div>
 {{ form_end(commentForm) }}

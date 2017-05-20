@@ -11,8 +11,8 @@ class CommentType extends AbstractType
     {
         $builder
                   ->add('parent', HiddenType::class,array("attr"=>array("class"=>"champCache")))
-          		  ->add('author', TextareaType::class)
-           		  ->add('content', TextareaType::class);
+          		  ->add('author', TextareaType::class, array('label' => 'Nom'))
+           		  ->add('content', TextareaType::class,array('label' => 'Contenu'));
                   
     }
     public function getName()

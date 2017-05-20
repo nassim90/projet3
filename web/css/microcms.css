@@ -4,8 +4,9 @@ body {
 
 .footer {
     border-top: 1px solid #ccc;
-    padding-top: 10px;
+    padding-top: 60px;
     text-align: center;
+
 }
 
 .articleTitle:hover, .articleTitle:focus {
